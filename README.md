@@ -1,6 +1,6 @@
-# 🚀 UVM SPI Verification Environment
+# UVM SPI Verification Environment
 
-## 📌 Overview
+## Overview
 
 This project implements a **complete UVM-based verification environment** for an SPI Master design using SystemVerilog.
 
@@ -10,7 +10,7 @@ The environment is verified using **Aldec Riviera-PRO 2025.4**.
 
 ---
 
-## 🧠 Key Highlights
+## Key Highlights
 
 - ✔ Full UVM-based verification architecture
 - ✔ Randomized transaction generation
@@ -22,7 +22,7 @@ The environment is verified using **Aldec Riviera-PRO 2025.4**.
 
 ---
 
-## 🏗️ Verification Architecture
+## Verification Architecture
 Sequence
 ↓
 Sequencer
@@ -37,27 +37,27 @@ Scoreboard + Coverage
 
 ---
 
-## 🎯 Verification Features
+## Verification Features
 
-### 📊 Stimulus Generation
+### Stimulus Generation
 - Randomized SPI transactions
 - Directed + random test scenarios
 
-### 🤖 Driver Functionality
+### Driver Functionality
 - Converts transactions into pin-level DUT activity
 - Handles SPI timing and handshake
 
-### 🔍 Scoreboard
+###  Scoreboard
 - Compares expected vs actual DUT output
 - Ensures data integrity
 
-### 📈 Coverage
+### Coverage
 - Tracks functional scenarios
 - Ensures verification completeness
 
 ---
 
-## 🛠️ Tools & Technologies
+## Tools & Technologies
 
 - SystemVerilog
 - UVM (Universal Verification Methodology)
@@ -67,7 +67,7 @@ Scoreboard + Coverage
 ---
 
 
-## 🚀 Future Enhancements (Phase 2)
+## Future Enhancements (Phase 2)
 
 - AXI4-Lite register interface integration
 - SPI configuration via memory-mapped registers
@@ -77,7 +77,7 @@ Scoreboard + Coverage
 
 ---
 
-## 🎯 Learning Outcomes
+## Learning Outcomes
 
 This project demonstrates:
 
@@ -88,15 +88,7 @@ This project demonstrates:
 - Functional coverage-driven verification
 - Real-world simulation using Aldec Riviera-PRO
 
----
 
-## 👩‍💻 Author
-
-**Shweta Sawant**  
-📍 SystemVerilog | UVM Verification Engineer (Aspiring)
-
----
-
-## ⭐ Note
+## Note
 
 This project is built for **learning and portfolio demonstration purposes**, following **industry-standard UVM practices**.
