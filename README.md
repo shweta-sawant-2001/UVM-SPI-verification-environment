@@ -12,13 +12,13 @@ The environment is verified using **Aldec Riviera-PRO 2025.4**.
 
 ## Key Highlights
 
-- ✔ Full UVM-based verification architecture
-- ✔ Randomized transaction generation
-- ✔ Driver–Sequencer communication via TLM
-- ✔ Scoreboard for functional correctness checking
-- ✔ Functional coverage model for verification completeness
-- ✔ Reusable and scalable testbench structure
-- ✔ Industry-style layered verification approach
+- Full UVM-based verification architecture
+- Randomized transaction generation
+- Driver–Sequencer communication via TLM
+- Scoreboard for functional correctness checking
+- Functional coverage model for verification completeness
+- Reusable and scalable testbench structure
+- Industry-style layered verification approach
 
 ---
 
