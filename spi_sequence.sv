@@ -1,19 +1,22 @@
-`timescale 1ns/1ps
-import uvm_pkg::*;
-`include "uvm_macros.svh"
+class spi_sequence extends uvm_sequence #(spi_transaction);
 
-// ========== SPI SEQUENCER ==========
-// This decides WHICH transactions to send and in WHAT ORDER
-// It's like a librarian handing books to a reader in sequence
-class spi_sequencer extends uvm_sequencer #(spi_transaction);
-  
-  // ========== REGISTER WITH UVM ==========
-  `uvm_component_utils(spi_sequencer)
-  
-  // ========== CONSTRUCTOR ==========
-  // uvm_component needs (name, parent)
-  function new(string name, uvm_component parent);
-    super.new(name, parent);
+  `uvm_object_utils(spi_sequence)
+
+  function new(string name = "spi_sequence");
+    super.new(name);
   endfunction
-  
+
+  task body();
+
+    spi_transaction tr;
+
+    repeat (10) begin
+      tr = spi_transaction::type_id::create("tr");
+      start_item(tr);
+      assert(tr.randomize());
+      finish_item(tr);
+    end
+
+  endtask
+
 endclass

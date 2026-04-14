@@ -1,76 +1,43 @@
-`timescale 1ns/1ps
-import uvm_pkg::*;
-`include "uvm_macros.svh"
-
-interface spi_if (input logic clk, reset);
-    logic [7:0] tx_data;
-    logic [7:0] rx_data;
-    logic mosi;
-    logic miso;
-    logic sclk;
-    logic cs;
-    logic start;
-    logic done;
-endinterface
-
 class spi_driver extends uvm_driver #(spi_transaction);
 
-virtual spi_if vif;
+  virtual spi_if vif;
 
-`uvm_component_utils(spi_driver)
+  `uvm_component_utils(spi_driver)
 
-function new(string name, uvm_component parent);
+  function new(string name, uvm_component parent);
     super.new(name, parent);
-endfunction
+  endfunction
 
-function void connect_phase(uvm_phase phase);
-    super.connect_phase(phase);
-    if(!uvm_config_db #(virtual spi_if):: get(
-        this, "", "spi_if", vif))
+  function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
 
-        `uvm_fatal("DRIVER"; "Could not get virtual interface")
-endfunction
+    if (!uvm_config_db#(virtual spi_if)::get(this, "", "spi_if", vif))
+      `uvm_fatal("NOVIF", "Driver interface missing")
+  endfunction
 
+  task run_phase(uvm_phase phase);
 
-task run_phase(uvm_phase phase);
-    spi_transaction req, rsp;
+    spi_transaction tr;
+    vif.start = 0;
 
     forever begin
-        seq_item_port.get_next_item(req);
+      seq_item_port.get_next_item(tr);
 
-        drive_transaction(req);
+      vif.tx_data = tr.tx_data;
 
-        rsp = spi_transaction::type_id::create("rsp");
-        rsp.copy(req);
-        rsp.rx_data = vif.rx_data;
+      @(posedge vif.clk);
+      vif.start = 1;
 
-        seq_item_port.item_done(rsp);
+      @(posedge vif.clk);
+      vif.start = 0;
+
+      wait(vif.done == 1);
+
+      tr.rx_data = vif.rx_data;
+
+      seq_item_port.item_done();
     end
-endtask
 
-// ========== HELPER TASK: DRIVE TRANSACTION ==========
-// Actually applies signals to DUT pins
-  task drive_transaction(spi_transaction tx);
-    $display("[DRIVER] Sending TX_DATA: 0x%h", tx.tx_data);
-    
-    // Wait for done to be low (DUT idle)
-    @(negedge vif.done);
-    
-    // Set input data
-    vif.tx_data = tx.tx_data;
-    
-    // Pulse start signal
-    vif.start = 1'b1;
-    @(posedge vif.clk);
-    vif.start = 1'b0;
-    
-    // Wait for transfer to complete
-    @(posedge vif.done);
-    
-    // Capture received data
-    vif.rx_data = vif.rx_data;  // DUT outputs this
-    
-    $display("[DRIVER] Received RX_DATA: 0x%h", vif.rx_data);
   endtask
-  
+
 endclass
