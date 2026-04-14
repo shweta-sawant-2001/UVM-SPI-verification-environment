@@ -99,6 +99,20 @@ This project demonstrates:
 - Functional coverage-driven verification
 - Real-world simulation using Aldec Riviera-PRO
 
+## 📊 Waveform Results
+
+The SPI transaction behavior was verified using EPWave simulation.
+
+<img width="1886" height="637" alt="image" src="https://github.com/user-attachments/assets/1092bbec-233e-46f5-9351-b6fc42136499" />
+
+
+### Observations:
+- Correct CS assertion during transaction
+- Proper MOSI shifting for tx_data
+- MISO response captured correctly
+- State machine transitions verified
+- rx_data matches expected SPI transfer result
+
 
 ## Note
 
