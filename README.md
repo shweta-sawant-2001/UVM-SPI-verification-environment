@@ -1,11 +1,11 @@
 # UVM SPI Verification Environment
 
-This project is a **SystemVerilog UVM-based verification environment** for testing an SPI (Serial Peripheral Interface) Master design.  
+This project is a **UVM SPI verification environment - Part 1** for testing an SPI (Serial Peripheral Interface) Master design.  
 It demonstrates a complete UVM testbench with stimulus generation, monitoring, and result checking.
 
 ---
 
-## 📌 Overview
+##  Overview
 
 The environment verifies SPI communication by sending random 8-bit data to the DUT and checking the received response.
 
@@ -20,8 +20,8 @@ A simple loopback model is used for `MISO` in simulation.
 
 ---
 
-## 🏗️ Testbench Structure
-- tb/
+## Testbench Structure
+- tb
     │
     ├── spi_if.sv
     ├── spi_transaction.sv
@@ -44,7 +44,7 @@ A simple loopback model is used for `MISO` in simulation.
 
 ---
 
-## ⚙️ Working Flow
+## Working Flow
 
 1. Sequence generates 10 random SPI transactions  
 2. Driver sends `tx_data` to DUT and triggers `start`  
@@ -55,7 +55,7 @@ A simple loopback model is used for `MISO` in simulation.
 
 ---
 
-## ▶️ How to Run (QuestaSim)
+## How to Run (QuestaSim)
 
 ```bash
 vlog rtl/spi_master.sv tb/*.sv sim/tb_top.sv
