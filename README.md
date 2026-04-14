@@ -1,70 +1,82 @@
 # UVM SPI Verification Environment
 
-## Overview
-
-This project implements a **complete UVM-based verification environment** for an SPI Master design using SystemVerilog.
-
-It follows a **modular, reusable, and industry-standard UVM architecture**, including stimulus generation, driver logic, scoreboard checking, and functional coverage collection.
-
-The environment is verified using **Aldec Riviera-PRO 2025.4**.
+This project is a **SystemVerilog UVM-based verification environment** for testing an SPI (Serial Peripheral Interface) Master design.  
+It demonstrates a complete UVM testbench with stimulus generation, monitoring, and result checking.
 
 ---
 
-## Key Highlights
+## 📌 Overview
 
-- Full UVM-based verification architecture
-- Randomized transaction generation
-- Driver–Sequencer communication via TLM
-- Scoreboard for functional correctness checking
-- Functional coverage model for verification completeness
-- Reusable and scalable testbench structure
-- Industry-style layered verification approach
+The environment verifies SPI communication by sending random 8-bit data to the DUT and checking the received response.
 
----
+Key components:
+- UVM Driver → drives SPI signals
+- UVM Monitor → captures DUT response
+- UVM Sequencer/Sequence → generates transactions
+- Scoreboard → checks results
+- Interface → connects DUT and testbench
 
-## Verification Architecture
-
-| Stage        | Description                  |
-|------------- |----------------------------- |
-| Sequence     | Generates transactions       |
-| Sequencer    | Controls transaction flow    |
-| Driver       | Drives signals to DUT        |
-| DUT          | SPI Master RTL               |
-| Monitor      | Observes DUT signals         |
-| Scoreboard   | Checks correctness           |
-| Coverage     | Measures verification        |
+A simple loopback model is used for `MISO` in simulation.
 
 ---
 
-## Verification Features
+## 🏗️ Testbench Structure
+- tb/
+    │
+    ├── spi_if.sv
+    ├── spi_transaction.sv
+    ├── spi_sequencer.sv
+    ├── spi_sequence.sv
+    ├── spi_driver.sv
+    ├── spi_monitor.sv
+    ├── spi_scoreboard.sv
+    ├── spi_agent.sv
+    ├── spi_env.sv
+    ├── spi_test.sv
+    │
+    rtl/
+    └── spi_master.sv
 
-### Stimulus Generation
-- Randomized SPI transactions
-- Directed + random test scenarios
+    sim/
+    └── tb_top.sv
 
-### Driver Functionality
-- Converts transactions into pin-level DUT activity
-- Handles SPI timing and handshake
 
-###  Scoreboard
-- Compares expected vs actual DUT output
-- Ensures data integrity
-
-### Coverage
-- Tracks functional scenarios
-- Ensures verification completeness
-
----
-
-## Tools & Technologies
-
-- SystemVerilog
-- UVM (Universal Verification Methodology)
-- Aldec Riviera-PRO 2025.4
-- Object-Oriented Verification (OOP)
 
 ---
 
+## ⚙️ Working Flow
+
+1. Sequence generates 10 random SPI transactions  
+2. Driver sends `tx_data` to DUT and triggers `start`  
+3. DUT performs SPI transfer  
+4. Monitor captures `tx_data` and `rx_data`  
+5. Scoreboard checks transaction validity  
+6. Final pass/fail report is generated  
+
+---
+
+## ▶️ How to Run (QuestaSim)
+
+```bash
+vlog rtl/spi_master.sv tb/*.sv sim/tb_top.sv
+vsim -uvm work.tb_spi_uvm
+run -all
+```
+## Output
+- At the end of simulation, scoreboard prints:
+    PASS = 10 | FAIL = 0 | TOTAL = 10
+
+- A waveform file is also generated:
+    dump.vcd
+
+## Purpose
+- This project helps in learning:
+
+1. UVM verification architecture
+2. Transaction-based verification
+3. Driver–Monitor–Scoreboard flow
+4. Basic SPI protocol simulation
+5. Testbench modularization
 
 ## Future Enhancements (Phase 2)
 
