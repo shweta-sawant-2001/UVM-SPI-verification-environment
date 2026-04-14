@@ -26,7 +26,7 @@ The environment is verified using **Aldec Riviera-PRO 2025.4**.
 
 Sequence → Sequencer → Driver → DUT (SPI Master RTL)  
                              ↓  
-                        Monitor → Scoreboard + Coverage
+                             Monitor → Scoreboard + Coverage
 
 
 ---
