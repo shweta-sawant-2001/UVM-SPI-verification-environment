@@ -24,10 +24,15 @@ The environment is verified using **Aldec Riviera-PRO 2025.4**.
 
 ## Verification Architecture
 
-Sequence → Sequencer → Driver → DUT (SPI Master RTL)  
-                             ↓  
-                             Monitor → Scoreboard + Coverage
-
+| Stage        | Description                  |
+|------------- |----------------------------- |
+| Sequence     | Generates transactions       |
+| Sequencer    | Controls transaction flow    |
+| Driver       | Drives signals to DUT        |
+| DUT          | SPI Master RTL               |
+| Monitor      | Observes DUT signals         |
+| Scoreboard   | Checks correctness           |
+| Coverage     | Measures verification        |
 
 ---
 
